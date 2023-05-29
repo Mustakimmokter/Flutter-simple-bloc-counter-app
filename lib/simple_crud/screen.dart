@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:practice_block_one/languages/locale_keys.g.dart';
 import 'package:practice_block_one/simple_crud/bloc/crud_bloc.dart';
 import 'package:practice_block_one/simple_crud/bloc/crud_event.dart';
 import 'package:practice_block_one/simple_crud/bloc/crud_state.dart';
@@ -44,8 +46,8 @@ class CrudBody extends StatelessWidget {
                   TextFormField(
                     controller: nameCtrl,
                     // keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
-                      hintText: 'Enter name',
+                    decoration: InputDecoration(
+                      hintText: LocaleKeys.text_filed_name_hint.tr(),
                     ),
                     onChanged: (value) {
                       value = nameCtrl.text;
@@ -55,8 +57,8 @@ class CrudBody extends StatelessWidget {
                   TextFormField(
                     controller: numberCtrl,
                     // keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
-                      hintText: 'Enter number',
+                    decoration: InputDecoration(
+                      hintText: LocaleKeys.text_filed_number_hint.tr(),
                     ),
                     onChanged: (value) {
                       value = numberCtrl.text;
@@ -67,7 +69,7 @@ class CrudBody extends StatelessWidget {
                    bloc: _crudBloc,
                    builder: (context, state) {
                      if(state is RequiredData){
-                       return const Text('Required number',style: TextStyle(color: Colors.red),);
+                       return  Text(LocaleKeys.required_number.tr(),style: TextStyle(color: Colors.red),);
                      }else{
                        return const SizedBox();
                      }
@@ -86,8 +88,8 @@ class CrudBody extends StatelessWidget {
                         _crudBloc.add(AddCrud(contact: numberCtrl.text));
                         numberCtrl.clear();
                       },
-                      child: const Text(
-                        'Save',
+                      child: Text(
+                        LocaleKeys.buttons_save.tr(),
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
@@ -104,7 +106,7 @@ class CrudBody extends StatelessWidget {
               bloc: _crudBloc,
               builder: (context, state) {
                 if(_crudBloc.contacts.isEmpty){
-                  return const Center(child: Text('No Contacts'));
+                  return Center(child: Text(LocaleKeys.no_data.tr()));
                 } else {
                   return Expanded(
                     child: ListView.builder(
@@ -117,9 +119,9 @@ class CrudBody extends StatelessWidget {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Text(
-                                  'Number',
-                                  style: TextStyle(
+                                Text(
+                                  LocaleKeys.name.tr(),
+                                  style: const TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -167,7 +169,7 @@ class CrudBody extends StatelessWidget {
                                               },
                                             ),
                                             const SizedBox(height: 5),
-                                            const Text('Required number',style: TextStyle(color: Colors.red),),
+                                            Text(LocaleKeys.required_number.tr(),style: TextStyle(color: Colors.red),),
                                             const SizedBox(height: 20),
                                             // Save
                                             SizedBox(
@@ -181,8 +183,8 @@ class CrudBody extends StatelessWidget {
                                                   Navigator.pop(context);
 
                                                 },
-                                                child: const Text(
-                                                  'Submit',
+                                                child: Text(
+                                                  LocaleKeys.buttons_submit.tr(),
                                                   style: TextStyle(color: Colors.white),
                                                 ),
                                               ),
@@ -214,8 +216,42 @@ class CrudBody extends StatelessWidget {
                 }
               },
             ),
+            Container(
+              padding: EdgeInsets.all(10),
+              color: Colors.grey.shade100,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  button(
+                    title: 'Bangla',
+                    onPressed: ()async{
+                      await context.setLocale(const Locale('bn','BD'));
+                    },
+                  ),
+                  button(
+                    title: 'English',
+                    onPressed: ()async{
+                      await context.setLocale(const Locale('en','US'));
+                    },
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
+      ),
+    );
+  }
+
+
+  Widget button({required String title, required Function() onPressed,Color? color}){
+    return MaterialButton(
+      color: Colors.green,
+      disabledColor: color ?? Colors.grey,
+      onPressed: onPressed,
+      child: Text(
+        title,
+        style: const TextStyle(color: Colors.white),
       ),
     );
   }

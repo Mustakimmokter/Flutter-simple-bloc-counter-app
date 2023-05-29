@@ -1,0 +1,13 @@
+{
+  "text_filed":{
+    "name_hint": "তোমার নাম দাও",
+    "number_hint": "তোমার নাম্বার দাও"
+  },
+  "buttons": {
+    "save": "সেইভ করুন",
+    "submit": "সাবমিট করুন"
+  } ,
+  "name": "নাম",
+  "no_data": "কোন ডাটা নাই",
+  "required_number": "নাম্বার দিতে হবে"
+}

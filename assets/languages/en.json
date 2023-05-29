@@ -1,0 +1,13 @@
+{
+  "text_filed":{
+    "name_hint": "Enter your name",
+    "number_hint": "Enter your number"
+  },
+  "buttons": {
+    "save": "Save",
+    "submit": "Submit"
+  } ,
+  "name": "Name",
+  "no_data": "No data",
+  "required_number": "Required number"
+}
